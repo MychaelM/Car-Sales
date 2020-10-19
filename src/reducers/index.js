@@ -5,7 +5,7 @@ const initialState = {
     name: "2019 Ford Mustang",
     image:
       "https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg",
-    features: [{ id: 4, name: "Rear spoiler", price: 250 }],
+    features: [],
   },
   additionalFeatures: [
     { id: 1, name: "V-6 engine", price: 1500 },
@@ -21,7 +21,9 @@ export const carReducer = (state = initialState, action) => {
       console.log(state)
       return {
         ...state,
-        car: {...state.car, features: [...state.car.features, action.payload.item]}
+        car: {...state.car, features: [...state.car.features, action.payload.item]},
+        additionalFeatures: state.additionalFeatures.filter(feature => feature.id !== action.payload.id),
+        additionalPrice: state.additionalPrice += action.payload.item.price
       };
     //  return state.additionalFeatures.map(feature => { /* Needs to return but currently state returns undefined after action */
     //     if (feature.id === action.payload.id) {
