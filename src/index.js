@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { carReducer } from "./reducers";
+import { carReducer } from "./reducers/index";
 import { createStore } from "redux";
 
 import 'bulma/css/bulma.css';

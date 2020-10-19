@@ -5,7 +5,7 @@ const initialState = {
     name: "2019 Ford Mustang",
     image:
       "https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg",
-    features: [],
+    features: [{ id: 4, name: "Rear spoiler", price: 250 }],
   },
   additionalFeatures: [
     { id: 1, name: "V-6 engine", price: 1500 },
@@ -18,9 +18,20 @@ const initialState = {
 export const carReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_FEATURE":
-      console.log(action.payload)
-      return state;
-    
+      console.log(state)
+      state.additionalFeatures.map(feature => { /* Needs to return but currently state returns undefined after action */
+        if (feature.id === action.payload.id) {
+          return {
+            ...state,
+            car: {
+              ...state.car,
+              features: [...state.car.features, action.payload.item]
+            },
+          };
+        } else {
+          return state;
+        }
+      });
     default:
       return state;
   }
