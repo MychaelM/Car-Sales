@@ -18,12 +18,17 @@ const initialState = {
 export const carReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_FEATURE":
-      console.log(state)
+      // console.log(state)
       return {
         ...state,
-        car: {...state.car, features: [...state.car.features, action.payload.item]},
-        additionalFeatures: state.additionalFeatures.filter(feature => feature.id !== action.payload.id),
-        additionalPrice: state.additionalPrice += action.payload.item.price
+        car: {
+          ...state.car,
+          features: [...state.car.features, action.payload.item],
+        },
+        additionalFeatures: state.additionalFeatures.filter(
+          (feature) => feature.id !== action.payload.id
+        ),
+        additionalPrice: (state.additionalPrice += action.payload.item.price),
       };
     //  return state.additionalFeatures.map(feature => { /* Needs to return but currently state returns undefined after action */
     //     if (feature.id === action.payload.id) {
@@ -38,6 +43,24 @@ export const carReducer = (state = initialState, action) => {
     //       return state;
     //     }
     //   });
+    case "REMOVE_FEATURE":
+      console.log("Hello from Remove Feature", action.payload);
+      return {
+        ...state,
+        car: {
+          ...state.car,
+          features: state.car.features.filter(
+            (feature) => feature.id !== action.payload.feature.id
+          ),
+        },
+        additionalFeatures: [
+          ...state.additionalFeatures,
+          action.payload.feature,
+        ],
+        additionalPrice: (state.additionalPrice -=
+          action.payload.price),
+      };
+
     default:
       return state;
   }
