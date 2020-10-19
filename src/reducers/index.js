@@ -19,19 +19,23 @@ export const carReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_FEATURE":
       console.log(state)
-      state.additionalFeatures.map(feature => { /* Needs to return but currently state returns undefined after action */
-        if (feature.id === action.payload.id) {
-          return {
-            ...state,
-            car: {
-              ...state.car,
-              features: [...state.car.features, action.payload.item]
-            },
-          };
-        } else {
-          return state;
-        }
-      });
+      return {
+        ...state,
+        car: {...state.car, features: [...state.car.features, action.payload.item]}
+      };
+    //  return state.additionalFeatures.map(feature => { /* Needs to return but currently state returns undefined after action */
+    //     if (feature.id === action.payload.id) {
+    //       return {
+    //         ...state,
+    //         car: {
+    //           ...state.car,
+    //           features: [...state.car.features, action.payload.item]
+    //         },
+    //       };
+    //     } else {
+    //       return state;
+    //     }
+    //   });
     default:
       return state;
   }
